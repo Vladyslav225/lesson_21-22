@@ -1,61 +1,47 @@
-from openpyxl import load_workbook
-from openpyxl import Workbook
+_list = []
+
+class Users:
 
 
+     def __init__(self, user_name, last_name, age, city):
+          self.user_name = user_name
+          self.last_name = last_name
+          self.age = age
+          self.city = city
 
-class Manager_API_Users:
-     def __init__(self, name, last_name, city, age):
-         self.name = name
-         self.last_name = last_name
-         self.city = city
-         self.age = age
+     def get_info(self):
 
-     def get_user_information(self):
-          return {
-               'name': self.name,
+          return{
+               'user_name': self.user_name,
                'last_name': self.last_name,
+               'age': self.age,
                'city': self.city,
-               'age': self.age
           }
 
-     def add_user(self):
-          pass
+     def change_name(self, new_name):
+          self.user_name = new_name
 
-     def charge_user_information(self):
-          pass
+     def change_by_key_field(self, field_name, new_value):
 
-     def delete_user():
-          pass
+          if getattr(self, field_name):
+               setattr(self, field_name, new_value)
 
-     def search_user():
-          pass
 
-     # def save_in_xlsx(self, key, value):
-     #      wb = Workbook()
-     #      sheet = wb.active
 
-     #      sheet['A1'] = 'name'
-     #      sheet['B1'] = 'last name'
-     #      sheet['C1'] = 'city'
-     #      sheet['D1'] = 'age'
 
-     #      for row, (key, value) in enumerate(dict_users.items(), start=2):
-     #           print(value)
-     #           sheet[f'A{row}'] = value
-     #           sheet[f'B{row}'] = value
-     #           sheet[f'C{row}'] = value
-     #           sheet[f'D{row}'] = value
 
-     #      wb.save('dict_users.xlsx')
-     #      wb.close()
+user_1 = Users('vasya', 'ivanov', 33, 'kyiv')
+user_2 = Users(user_name='aaa')
+print(user_1.last_name)
 
-first_user = Manager_API_Users('vasya', 'ivanov', 'kyiv', 33)
-q = first_user.get_user_information()
-print(q)
+print(getattr(user_1, 'last_name'))
+user_1.get_info()
+user_1.change_name('ivan')
 
-# w = first_user.add_user('ivan', 'krone', 'lviv', 22)
-# print(w)
+_list.append(user_1)
 
-first_user.charge_user_information()
 
-# first_user.save_in_xlsx('key', 'value')
+for index, user in enumerate(_list):
+     print(user.get_info())
+     user.change_by_key_field('user_name', user.user_name + str(index))
+     print(user.get_info())
